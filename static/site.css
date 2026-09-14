@@ -82,7 +82,7 @@
     /* a dark gallery hang — several of the paintings are night scenes */
     --ground:   #16171e;
     --ground-2: #20222c;
-    --ink:      #ece7dd;
+    --ink:      #c9c2b3;   /* warm parchment grey, not stark white — 10:1 on ground */
     --ink-soft: #9a9182;   /* 5.7:1 on ground */
     --line:     #2b2c34;
     --accent:   #d9743f;   /* lifted terracotta — 5.5:1 on the dark ground */
@@ -168,6 +168,15 @@ main { padding: 0 var(--edge); }
   color: var(--ink-soft);
 }
 
+.tile-hint {
+  display: block;
+  margin-top: 0.15rem;
+  font-style: normal;
+  font-size: 0.8rem;
+  color: var(--ink-soft);
+  opacity: 0.75;
+}
+
 .empty {
   padding: 3rem var(--edge);
   color: var(--ink-soft);
@@ -190,6 +199,7 @@ main { padding: 0 var(--edge); }
   color: var(--ink);
 }
 .site-footer p { margin: 0.3rem 0; }
+.site-footer .rights { margin-top: 1rem; font-size: 0.85rem; }
 .site-footer a {
   color: inherit;
   text-decoration-color: var(--accent);

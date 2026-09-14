@@ -2,19 +2,19 @@
 # Every value marked TODO is a placeholder and will render literally on the page.
 
 # TODO: the artist's display name — a first name or a chosen name, NOT a full legal name.
-artist_name = "TODO Artist Name"
+artist_name = "Majken Björserud"
 
 # TODO: one short line about who she is. Shown under the name in the header.
-tagline = "TODO one line about the artist"
+tagline = "Character work, digital and traditional. Commission enquiries by email"
 
 # TODO: contact address the PARENT controls, not the artist's own inbox.
-contact_email = "TODO@example.com"
+contact_email = "henrikbjorserud@gmail.com"
 
 # TODO: the custom domain the site will live on (no scheme, no trailing slash).
 # Leave as-is until the DNS record exists. Used for the <docs/CNAME> file and
 # for absolute URLs in the page head.
-domain = "TODO.example.com"
+domain = "majkenbjorserud.se"
 
 # The GitHub Pages target, "<username>.github.io". Only used in the build log
 # as a reminder for the DNS CNAME record.
-github_pages_host = "TODO-username.github.io"
+github_pages_host = "henrikBjorserud.github.io"

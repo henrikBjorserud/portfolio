@@ -57,6 +57,17 @@ python build.py --force     # re-encode everything
 Output goes to `docs/`, which **is** committed. The build prints the total
 `docs/` size against the 1 GB GitHub Pages cap.
 
+## Preview locally
+
+`docs/` is plain static files — any file server works. From the project root:
+
+```
+python -m http.server 8000 --directory docs
+```
+
+Then open http://localhost:8000/. Ctrl+C to stop. (No need for this before
+every push — it's just for checking the grid/lightbox/design before publishing.)
+
 ## Publishing
 
 ```

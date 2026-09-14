@@ -79,8 +79,10 @@ ffmpeg -i in.mp4 -filter:v "setpts=PTS/16" -an \
 `-movflags +faststart` matters: without it the browser downloads the whole file
 before the first frame appears.
 
-**Loop preview** — 4–6 seconds from an interesting middle section, same encode
-settings, for the grid tile. Muted autoplay loop.
+**Loop preview** — the final 4–6 seconds, same encode settings, for the grid
+tile. Muted autoplay loop. Ends at the same point as the poster frame (below)
+rather than a mid-process crop, so the tile never looks rougher than the
+finished piece it's previewing.
 
 **Poster frame** — the final frame, not the first. A blank canvas is a bad
 thumbnail. `-sseof -1` grabs the end.

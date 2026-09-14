@@ -36,6 +36,9 @@
              alt="{{ art.title }}" loading="lazy" decoding="async">
         {%- endif %}
         <span class="tile-title">{{ art.title }}</span>
+        {%- if art.video %}
+        <span class="tile-hint">(click for timelapse)</span>
+        {%- endif %}
       </a>
     </li>
     {%- endfor %}
@@ -49,6 +52,7 @@
   <h2>About</h2>
   <p>{{ site.tagline }}</p>
   <p>Contact: <a href="mailto:{{ site.contact_email }}">{{ site.contact_email }}</a></p>
+  <p class="rights">All artwork &copy; {{ copyright_year }} {{ site.artist_name }}</p>
 </footer>
 
 {%- if artworks %}

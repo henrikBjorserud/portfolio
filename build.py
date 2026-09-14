@@ -278,6 +278,15 @@ def process_video(src: Path, out_dir: Path, force: bool) -> dict:
     common_out = [
         "-an", "-c:v", "libx264", "-preset", "slow", "-crf", "23",
         "-pix_fmt", "yuv420p", "-movflags", "+faststart",
+        # Explicit constant output fps + a short, fixed keyframe interval.
+        # Without -r, setpts alone can leave the container's effective frame
+        # rate absurdly high on a heavily sped-up clip (frame count is
+        # unchanged; only timestamps compress). Without a capped -g, x264's
+        # default scene-cut-adaptive spacing can land as few as 6-7 keyframes
+        # across a whole clip — browsers snap the scrub bar to the nearest
+        # keyframe, so that looked like "only three frames" when scrubbing.
+        # One keyframe every 2s at 30fps keeps seeking smooth regardless.
+        "-r", "30", "-g", "60", "-keyint_min", "60", "-sc_threshold", "0",
     ]
 
     if force or not newer_than_all(full_path, src):
@@ -288,9 +297,14 @@ def process_video(src: Path, out_dir: Path, force: bool) -> dict:
         ])
 
     if force or not newer_than_all(preview_path, src):
+        # From the final seconds, not the middle: a mid-process crop can look
+        # rougher than the finished piece, which reads as worse than the art
+        # actually is. Ending at the same point as the poster (also the final
+        # frame) means the loop settles on something close to finished instead
+        # of resetting to a visibly earlier state.
         seg = PREVIEW_SECONDS * rate
-        start = max(0.0, duration / 2 - seg / 2)
-        seg = min(seg, max(0.5, duration - start))
+        seg = min(seg, duration)
+        start = max(0.0, duration - seg)
         run([
             "ffmpeg", "-y", "-ss", f"{start:.3f}", "-t", f"{seg:.3f}", "-i", str(src),
             "-filter:v", f"setpts=PTS/{rate},scale=-2:{VIDEO_HEIGHT}",
@@ -429,6 +443,7 @@ def render(site: dict, artworks: list[Artwork]) -> None:
             for a in artworks
         ],
         artworks_json=_safe_json([a.as_json() for a in artworks]),
+        copyright_year=date.today().year,  # computed at build time — never goes stale
     )
     (DOCS / "index.html").write_text(html, encoding="utf-8", newline="\n")
 
