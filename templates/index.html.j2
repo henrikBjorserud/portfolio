@@ -1,0 +1,69 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="light dark">
+<title>{{ site.artist_name }}</title>
+<meta name="description" content="{{ site.tagline }}">
+{%- if not site.domain.startswith("TODO") %}
+<link rel="canonical" href="https://{{ site.domain }}/">
+{%- endif %}
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Crect width='16' height='16' fill='%23a6461f'/%3E%3C/svg%3E">
+<link rel="preload" href="static/fonts/newsreader-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="static/site.css">
+</head>
+<body>
+<header class="site-header">
+  <h1>{{ site.artist_name }}</h1>
+  <p class="tagline">{{ site.tagline }}</p>
+</header>
+
+<main>
+  {%- if artworks %}
+  <ul class="grid" id="grid">
+    {%- for art in artworks %}
+    <li class="tile">
+      <a class="tile-link" href="{{ art.image.full }}" data-index="{{ loop.index0 }}"
+         aria-label="{{ art.title }}{% if art.video %} (with timelapse){% endif %}">
+        {%- if art.video %}
+        <video class="tile-media" width="{{ art.video.preview_width }}" height="{{ art.video.preview_height }}"
+               poster="{{ art.video.poster }}" muted loop playsinline preload="none"
+               data-preview="{{ art.video.preview }}"></video>
+        {%- else %}
+        <img class="tile-media" src="{{ art.image.thumb }}"
+             width="{{ art.image.thumb_width }}" height="{{ art.image.thumb_height }}"
+             alt="{{ art.title }}" loading="lazy" decoding="async">
+        {%- endif %}
+        <span class="tile-title">{{ art.title }}</span>
+      </a>
+    </li>
+    {%- endfor %}
+  </ul>
+  {%- else %}
+  <p class="empty">No artworks yet. Add a folder to <code>source/</code> and re-run the build.</p>
+  {%- endif %}
+</main>
+
+<footer class="site-footer" id="about">
+  <h2>About</h2>
+  <p>{{ site.tagline }}</p>
+  <p>Contact: <a href="mailto:{{ site.contact_email }}">{{ site.contact_email }}</a></p>
+</footer>
+
+{%- if artworks %}
+<dialog id="lightbox" class="lightbox" aria-label="Artwork viewer">
+  <button type="button" class="lightbox-close" data-close aria-label="Close">&times;</button>
+  <div class="lightbox-body" id="lightbox-body"></div>
+  <nav class="lightbox-nav">
+    <button type="button" data-prev aria-label="Previous artwork">&larr;</button>
+    <span class="lightbox-caption" id="lightbox-caption"></span>
+    <button type="button" data-next aria-label="Next artwork">&rarr;</button>
+  </nav>
+</dialog>
+
+<script id="artworks-data" type="application/json">{{ artworks_json | safe }}</script>
+<script src="static/site.js"></script>
+{%- endif %}
+</body>
+</html>

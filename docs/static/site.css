@@ -1,0 +1,273 @@
+/* ============================================================================
+   PORTFOLIO — STYLESHEET
+
+   Design brief (spec.md): the interface stays quiet, the artwork carries all
+   the colour. Near-neutral ground, generous space, one typeface at two sizes.
+   The accent is pulled from the drawings, not invented.
+
+   Palette source: six painted portraits. Burnt orange / terracotta is the
+   through-line in every one; deep midnight navy is the recurring counterpoint
+   (backgrounds of "Curls", "Russian Gurl", "Sun & Moon"). The accent below is
+   that terracotta, sampled from the work and used ONLY for focus rings and
+   link underlines — never as fill, never as decoration.
+
+   Typeface: Newsreader — a quiet, catalogue-weight serif. Set small on purpose.
+   Its italic does the exhibition-label work (tagline, tile captions).
+   ========================================================================== */
+
+/* Newsreader, self-hosted — no third-party font request (spec: no third-party
+   embeds). Variable files: one covers weights 400-500 across optical sizes. */
+@font-face {
+  font-family: "Newsreader";
+  font-style: normal;
+  font-weight: 400 500;
+  font-display: swap;
+  src: url("fonts/newsreader-latin.woff2") format("woff2");
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA,
+    U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193,
+    U+2212, U+2215, U+FEFF, U+FFFD;
+}
+@font-face {
+  font-family: "Newsreader";
+  font-style: normal;
+  font-weight: 400 500;
+  font-display: swap;
+  src: url("fonts/newsreader-latin-ext.woff2") format("woff2");
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF,
+    U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020,
+    U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+@font-face {
+  font-family: "Newsreader";
+  font-style: italic;
+  font-weight: 400 500;
+  font-display: swap;
+  src: url("fonts/newsreader-italic-latin.woff2") format("woff2");
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA,
+    U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193,
+    U+2212, U+2215, U+FEFF, U+FFFD;
+}
+@font-face {
+  font-family: "Newsreader";
+  font-style: italic;
+  font-weight: 400 500;
+  font-display: swap;
+  src: url("fonts/newsreader-italic-latin-ext.woff2") format("woff2");
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF,
+    U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020,
+    U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+
+:root {
+  /* warm cartridge-paper ground — a painting hung on a wall reads as the colour */
+  --ground:    #f4efe4;
+  --ground-2:  #ece5d6;   /* faint fill behind an image while it loads */
+  --ink:       #26221c;   /* warm near-black */
+  --ink-soft:  #6f675b;   /* labels, secondary text — 4.9:1 on ground */
+  --line:      #ddd5c4;   /* hairlines */
+  --accent:    #a6461f;   /* terracotta, from the drawings — focus + underline only */
+
+  --text:    1rem;
+  --display: clamp(1.35rem, 1.15rem + 0.9vw, 1.7rem);
+
+  --gap:      clamp(1.5rem, 1rem + 3vw, 3.5rem);
+  --edge:     clamp(1.25rem, 0.5rem + 4vw, 4rem);
+  --tile-min: 300px;
+
+  --serif: "Newsreader", Georgia, "Times New Roman", serif;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    /* a dark gallery hang — several of the paintings are night scenes */
+    --ground:   #16171e;
+    --ground-2: #20222c;
+    --ink:      #ece7dd;
+    --ink-soft: #9a9182;   /* 5.7:1 on ground */
+    --line:     #2b2c34;
+    --accent:   #d9743f;   /* lifted terracotta — 5.5:1 on the dark ground */
+  }
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+
+html { -webkit-text-size-adjust: 100%; }
+
+body {
+  margin: 0;
+  background: var(--ground);
+  color: var(--ink);
+  font-family: var(--serif);
+  font-size: var(--text);
+  font-weight: 400;
+  line-height: 1.55;
+  font-optical-sizing: auto;
+  -webkit-font-smoothing: antialiased;
+}
+
+img, video { max-width: 100%; display: block; }
+
+a { color: inherit; }
+
+:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+}
+
+/* ---- header ------------------------------------------------------------ */
+
+.site-header {
+  padding: clamp(2rem, 1rem + 4vw, 4.5rem) var(--edge) clamp(1.75rem, 1rem + 3vw, 3.5rem);
+}
+.site-header h1 {
+  margin: 0;
+  font-size: var(--display);
+  font-weight: 500;
+  letter-spacing: 0.005em;
+}
+.tagline {
+  margin: 0.4rem 0 0;
+  font-style: italic;
+  color: var(--ink-soft);
+}
+
+/* ---- grid ------------------------------------------------------------ */
+
+main { padding: 0 var(--edge); }
+
+.grid {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(var(--tile-min), 1fr));
+  gap: var(--gap);
+  align-items: start;
+}
+
+.tile { margin: 0; }
+
+.tile-link {
+  display: block;
+  text-decoration: none;
+  color: inherit;
+}
+
+.tile-media {
+  width: 100%;
+  height: auto;
+  background: var(--ground-2);
+}
+
+/* exhibition label: quiet, italic, hangs just below the work */
+.tile-title {
+  display: block;
+  margin-top: 0.7rem;
+  font-style: italic;
+  font-size: 0.95rem;
+  color: var(--ink-soft);
+}
+
+.empty {
+  padding: 3rem var(--edge);
+  color: var(--ink-soft);
+  font-style: italic;
+}
+
+/* ---- footer -------------------------------------------------------- */
+
+.site-footer {
+  margin-top: clamp(4rem, 2rem + 8vw, 8rem);
+  padding: clamp(1.75rem, 1rem + 3vw, 3rem) var(--edge) clamp(3rem, 2rem + 4vw, 5rem);
+  border-top: 1px solid var(--line);
+  color: var(--ink-soft);
+  max-width: 42rem;
+}
+.site-footer h2 {
+  margin: 0 0 0.5rem;
+  font-size: var(--text);
+  font-weight: 500;
+  color: var(--ink);
+}
+.site-footer p { margin: 0.3rem 0; }
+.site-footer a {
+  color: inherit;
+  text-decoration-color: var(--accent);
+  text-underline-offset: 3px;
+}
+
+/* ---- lightbox ------------------------------------------------------------ */
+
+.lightbox {
+  width: min(94vw, 1180px);
+  max-height: 94vh;
+  padding: 0;
+  border: none;
+  background: var(--ground);
+  color: var(--ink);
+  overflow: hidden;
+}
+.lightbox::backdrop { background: rgba(12, 10, 8, 0.85); }
+
+.lightbox-body {
+  max-height: calc(94vh - 3.25rem);
+  overflow: auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: #000;
+}
+.lightbox-body img,
+.lightbox-body video {
+  max-height: calc(94vh - 3.25rem);
+  width: auto;
+  margin: 0 auto;
+}
+
+.lightbox-close {
+  position: absolute;
+  top: 0.15rem;
+  right: 0.4rem;
+  z-index: 1;
+  border: none;
+  background: transparent;
+  color: #fff;
+  font-size: 1.6rem;
+  line-height: 1;
+  padding: 0.35rem 0.55rem;
+  cursor: pointer;
+  text-shadow: 0 1px 4px rgba(0, 0, 0, 0.7);
+}
+
+.lightbox-nav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  height: 3.25rem;
+  padding: 0 0.75rem;
+}
+.lightbox-nav button {
+  border: 1px solid var(--line);
+  background: transparent;
+  color: inherit;
+  font: inherit;
+  padding: 0.3rem 0.75rem;
+  cursor: pointer;
+}
+.lightbox-nav button:hover { border-color: var(--ink-soft); }
+
+.lightbox-caption {
+  flex: 1;
+  text-align: center;
+  font-style: italic;
+  font-size: 0.95rem;
+  color: var(--ink-soft);
+}
+
+/* ---- motion ---------------------------------------------------------- */
+
+@media (prefers-reduced-motion: reduce) {
+  /* site.js also checks this and never calls play(); tiles keep their poster. */
+  * { scroll-behavior: auto; }
+}

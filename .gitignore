@@ -1,0 +1,20 @@
+# Originals — never published. Anything committed here would be public.
+source/
+
+# Python environment
+.venv/
+__pycache__/
+*.pyc
+
+# Bundled exiftool (Windows build, kept locally, not part of the repo)
+exiftool-13.59_64/
+exiftool.exe
+
+# OS cruft
+.DS_Store
+Thumbs.db
+
+# Playwright MCP scratch (screenshots, snapshots) if the browser tool runs here
+.playwright-mcp/
+
+# NOTE: docs/ is intentionally NOT ignored — it is the published site.
