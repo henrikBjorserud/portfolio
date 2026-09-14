@@ -170,7 +170,11 @@ main { padding: 0 var(--edge); }
 
 .tile-hint {
   display: block;
-  margin-top: 0.15rem;
+  /* Sits right under the image while .tile-title is commented out above —
+     this is the "under the image" gap that .tile-title normally carries.
+     If titles come back, shrink this to ~0.15rem (the gap under a title
+     line instead). */
+  margin-top: 0.7rem;
   font-style: normal;
   font-size: 0.8rem;
   color: var(--ink-soft);

@@ -67,7 +67,10 @@
       img.alt = art.title;
       body.appendChild(img);
     }
-    caption.textContent = art.title + " (" + (i + 1) + "/" + artworks.length + ")";
+    // Working titles hidden here too (see templates/index.html.j2) so the
+    // lightbox doesn't reveal what the grid just hid. Restore by putting
+    // `art.title + " "` back in front once the pieces have real names.
+    caption.textContent = "(" + (i + 1) + "/" + artworks.length + ")";
   }
 
   function open(i, fromEl) {

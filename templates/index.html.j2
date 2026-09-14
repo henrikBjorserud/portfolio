@@ -35,7 +35,11 @@
              width="{{ art.image.thumb_width }}" height="{{ art.image.thumb_height }}"
              alt="{{ art.title }}" loading="lazy" decoding="async">
         {%- endif %}
-        <span class="tile-title">{{ art.title }}</span>
+        {#- Working titles only for now — the artist hasn't named these pieces
+            yet. Hidden from the grid (uncomment when real titles exist), but
+            still used for alt text / aria-label above so images keep a
+            meaningful description in the meantime. #}
+        {#- <span class="tile-title">{{ art.title }}</span> #}
         {%- if art.video %}
         <span class="tile-hint">(click for timelapse)</span>
         {%- endif %}
